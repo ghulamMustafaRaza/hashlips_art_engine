@@ -362,7 +362,7 @@ const startCreating = async () => {
     ) {
       let newDna = createDna(layers);
       duplicates[newDna] = (duplicates[newDna] || 0) + 1;
-      if (duplicates[newDna] > 200) {
+      if (duplicates[newDna] > 1000) {
         let results = constructLayerToDna(newDna, layers);
         let loadedElements = [];
 
