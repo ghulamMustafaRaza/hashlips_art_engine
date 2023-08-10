@@ -24,19 +24,8 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 474000,
-    layersOrder: [
-      { name: "Background" },
-      { name: "Type" },
-      { name: "Eyes" },
-      { name: "Clothing" },
-      { name: "Eyewear" },
-      { name: "Mouth" },
-      { name: "Hat" },
-    ],
-  },
-  {
-    growEditionSizeTo: 485000,
+    growEditionSizeTo: 11000,
+    maxAllowedDuplicate: 2,
     layersOrder: [
       { name: "Background" },
       { name: "Type" },
@@ -48,7 +37,8 @@ const layerConfigurations = [
     ],
   },
   {
-    growEditionSizeTo: 500000,
+    maxAllowedDuplicate: 3,
+    growEditionSizeTo: 15000 + 11000,
     layersOrder: [
       { name: "Background" },
       { name: "Type" },
@@ -59,6 +49,20 @@ const layerConfigurations = [
       { name: "Eyewear-2", displayName: "Eyewear" },
     ],
   },
+  {
+    maxAllowedDuplicate: 100,
+    growEditionSizeTo: 500000,
+    layersOrder: [
+      { name: "Background" },
+      { name: "Type" },
+      { name: "Eyes" },
+      { name: "Clothing" },
+      { name: "Eyewear" },
+      { name: "Mouth" },
+      { name: "Hat" },
+    ],
+  },
+
 
 ];
 

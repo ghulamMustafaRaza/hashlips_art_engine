@@ -338,7 +338,6 @@ const startCreating = async () => {
   let editionCount = 1;
   let failedCount = 0;
   let abstractedIndexes = [];
-  let duplicates = {};
   for (
     let i = network == NETWORK.sol ? 0 : 1;
     i <= layerConfigurations[layerConfigurations.length - 1].growEditionSizeTo;
@@ -353,6 +352,8 @@ const startCreating = async () => {
     ? console.log("Editions left to create: ", abstractedIndexes)
     : null;
   while (layerConfigIndex < layerConfigurations.length) {
+    const duplicates = {};
+
     const layers = layersSetup(
       layerConfigurations[layerConfigIndex].layersOrder
     );
@@ -361,7 +362,7 @@ const startCreating = async () => {
     ) {
       let newDna = createDna(layers);
       duplicates[newDna] = (duplicates[newDna] || 0) + 1;
-      if (duplicates[newDna] <= 200) {
+      if (duplicates[newDna] <= (layerConfigurations[layerConfigIndex].maxAllowedDuplicate || 1)) {
         let results = constructLayerToDna(newDna, layers);
         let loadedElements = [];
 
