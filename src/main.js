@@ -361,7 +361,7 @@ const startCreating = async () => {
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
       let newDna = createDna(layers);
-      duplicates[newDna] = (duplicates[newDna]) + 1;
+      duplicates[newDna] = (duplicates[newDna] || 0) + 1;
       if (duplicates[newDna] > 50) {
         let results = constructLayerToDna(newDna, layers);
         let loadedElements = [];
