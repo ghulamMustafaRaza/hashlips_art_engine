@@ -2,7 +2,7 @@ const basePath = process.cwd();
 const { NETWORK } = require(`${basePath}/constants/network.js`);
 const fs = require("fs");
 const sha1 = require(`${basePath}/node_modules/sha1`);
-const { createCanvas, loadImage } = require(`${basePath}/node_modules/canvas`);
+const { createCanvas, loadImage } = require(`canvas`);
 const buildDir = `${basePath}/build`;
 const layersDir = `${basePath}/layers`;
 const {
@@ -21,7 +21,7 @@ const {
   network,
   solanaMetadata,
   gif,
-} = require(`${basePath}/src/config.js`);
+} = require(`./config.js`);
 const canvas = createCanvas(format.width, format.height);
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = format.smoothing;
@@ -81,7 +81,7 @@ const getElements = (path) => {
         name: cleanName(i),
         filename: i,
         path: `${path}${i}`,
-        weight: getRarityWeight(i),
+        weight: getRarityWeight(i) * 10000,
       };
     });
 };
@@ -203,18 +203,18 @@ const drawElement = (_renderObject, _index, _layersLen) => {
   ctx.globalCompositeOperation = _renderObject.layer.blend;
   text.only
     ? addText(
-        `${_renderObject.layer.name}${text.spacer}${_renderObject.layer.selectedElement.name}`,
-        text.xGap,
-        text.yGap * (_index + 1),
-        text.size
-      )
+      `${_renderObject.layer.name}${text.spacer}${_renderObject.layer.selectedElement.name}`,
+      text.xGap,
+      text.yGap * (_index + 1),
+      text.size
+    )
     : ctx.drawImage(
-        _renderObject.loadedImage,
-        0,
-        0,
-        format.width,
-        format.height
-      );
+      _renderObject.loadedImage,
+      0,
+      0,
+      format.width,
+      format.height
+    );
 
   addAttributes(_renderObject);
 };
@@ -293,8 +293,7 @@ const createDna = (_layers) => {
       random -= layer.elements[i].weight;
       if (random < 0) {
         return randNum.push(
-          `${layer.elements[i].id}:${layer.elements[i].filename}${
-            layer.bypassDNA ? "?bypassDNA=true" : ""
+          `${layer.elements[i].id}:${layer.elements[i].filename}${layer.bypassDNA ? "?bypassDNA=true" : ""
           }`
         );
       }
@@ -311,8 +310,8 @@ const saveMetaDataSingleFile = (_editionCount) => {
   let metadata = metadataList.find((meta) => meta.edition == _editionCount);
   debugLogs
     ? console.log(
-        `Writing metadata for ${_editionCount}: ${JSON.stringify(metadata)}`
-      )
+      `Writing metadata for ${_editionCount}: ${JSON.stringify(metadata)}`
+    )
     : null;
   fs.writeFileSync(
     `${buildDir}/json/${_editionCount}.json`,
@@ -362,7 +361,7 @@ const startCreating = async () => {
     ) {
       let newDna = createDna(layers);
       duplicates[newDna] = (duplicates[newDna] || 0) + 1;
-      if (duplicates[newDna] > 15000) {
+      if (duplicates[newDna] < 200) {
         let results = constructLayerToDna(newDna, layers);
         let loadedElements = [];
 
@@ -416,7 +415,7 @@ const startCreating = async () => {
         editionCount++;
         abstractedIndexes.shift();
       } else {
-        console.log("DNA exists!");
+        // console.log("DNA exists!");
         failedCount++;
         if (failedCount >= uniqueDnaTorrance) {
           console.log(

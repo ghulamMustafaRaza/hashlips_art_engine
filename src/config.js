@@ -2,7 +2,7 @@ const basePath = process.cwd();
 const { MODE } = require(`${basePath}/constants/blend_mode.js`);
 const { NETWORK } = require(`${basePath}/constants/network.js`);
 
-const network = NETWORK.eth;
+const network = NETWORK.sol;
 
 // General metadata for Ethereum
 const namePrefix = "Your Collection";
@@ -10,12 +10,12 @@ const description = "Remember to replace this description";
 const baseUri = "ipfs://NewUriToReplace";
 
 const solanaMetadata = {
-  symbol: "YC",
-  seller_fee_basis_points: 1000, // Define how much % you want from secondary market sales 1000 = 10%
-  external_url: "https://www.youtube.com/c/hashlipsnft",
+  symbol: "BAIL",
+  seller_fee_basis_points: 500, // Define how much % you want from secondary market sales 1000 = 10%
+  external_url: "https://www.solpatrol.io",
   creators: [
     {
-      address: "7fXNuer5sbZtaTEPhtJ5g5gNtuyRoKkvxdjEjEnPN4mC",
+      address: "9nHAK3WBfBEKUCTBQvzuKhg5f1ZpSmARZyuBfmSL7Spx",
       share: 100,
     },
   ],
@@ -24,17 +24,42 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 5,
+    growEditionSizeTo: 474000,
     layersOrder: [
       { name: "Background" },
-      { name: "Eyeball" },
-      { name: "Eye color" },
-      { name: "Iris" },
-      { name: "Shine" },
-      { name: "Bottom lid" },
-      { name: "Top lid" },
+      { name: "Type" },
+      { name: "Eyes" },
+      { name: "Clothing" },
+      { name: "Eyewear" },
+      { name: "Mouth" },
+      { name: "Hat" },
     ],
   },
+  {
+    growEditionSizeTo: 485000,
+    layersOrder: [
+      { name: "Background" },
+      { name: "Type" },
+      { name: "Eyes" },
+      { name: "Clothing" },
+      { name: "Eyewear-3", displayName: "Eyewear" },
+      { name: "Mouth" },
+      { name: "Hat-3", displayName: "Hat" },
+    ],
+  },
+  {
+    growEditionSizeTo: 500000,
+    layersOrder: [
+      { name: "Background" },
+      { name: "Type" },
+      { name: "Mouth-2", displayName: "Mouth" },
+      { name: "Eyes" },
+      { name: "Clothing-2", displayName: "Clothing" },
+      { name: "Hat-2" },
+      { name: "Eyewear-2", displayName: "Eyewear" },
+    ],
+  },
+
 ];
 
 const shuffleLayerConfigurations = false;
@@ -42,8 +67,8 @@ const shuffleLayerConfigurations = false;
 const debugLogs = false;
 
 const format = {
-  width: 512,
-  height: 512,
+  width: 1024,
+  height: 1024,
   smoothing: false,
 };
 
