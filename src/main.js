@@ -81,7 +81,7 @@ const getElements = (path) => {
         name: cleanName(i),
         filename: i,
         path: `${path}${i}`,
-        weight: getRarityWeight(i) * 10000,
+        weight: getRarityWeight(i) * 100,
       };
     });
 };
@@ -361,7 +361,7 @@ const startCreating = async () => {
     ) {
       let newDna = createDna(layers);
       duplicates[newDna] = (duplicates[newDna] || 0) + 1;
-      if (duplicates[newDna] < 200) {
+      if (duplicates[newDna] <= 200) {
         let results = constructLayerToDna(newDna, layers);
         let loadedElements = [];
 
@@ -408,7 +408,7 @@ const startCreating = async () => {
           console.log(
             `Created edition: ${abstractedIndexes[0]}, with DNA: ${sha1(
               newDna
-            )}`
+            )}, ${duplicates[newDna]}`
           );
         });
         dnaList.add(filterDNAOptions(newDna));
